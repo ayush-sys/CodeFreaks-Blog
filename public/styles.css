@@ -1,0 +1,25 @@
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Roboto&display=swap');
+
+
+.header-title{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.2rem;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+
+#profile-pic{
+    border-radius: 50%;
+    height: 10rem;
+    width: 10rem;
+}
+
+#codefreak-pic{
+    height: 2rem;
+    width: 2rem;
+}

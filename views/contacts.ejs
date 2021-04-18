@@ -1,0 +1,56 @@
+<%- include("partials/header") %> 
+
+<!-- Contacts Page -->
+
+<main class="container mt-2 py-5">
+    <h2><span class="text-muted">Drop an </span>Email.</h2>
+    <!-- form action="mailto:contact@yourdomain.com" -->
+    <form class="mt-4 mx-auto">
+        <div class="row g-3 mb-3">
+          <div class="col-sm-6">
+            <label for="firstName" class="form-label">First name <span class="text-muted">*</span></label>
+            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+            <div class="invalid-feedback">
+              Valid first name is required.
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="lastName" class="form-label">Last name <span class="text-muted">*</span></label>
+            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+            <div class="invalid-feedback">
+              Valid last name is required.
+            </div>
+          </div>
+
+
+          <div class="col-12">
+            <label for="email" class="form-label">Email <span class="text-muted">*</span></label>
+            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+            <div class="invalid-feedback">
+              Please enter a valid email address for shipping updates.
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="message" class="form-label">Subject <span class="text-muted">*</span></label>
+            <input type="text" class="form-control" id="subject" placeholder="" value="" required>
+          </div>
+
+          <div class="col-12">
+            <label for="message" class="form-label">Enter Message <span class="text-muted">*</span></label>
+            <textarea class="form-control" cols="15" rows="7"></textarea>
+          </div>
+        </div>
+
+          <button type="submit" class="btn btn-primary d-flex p-2 align-items-center"><span class="mx-1">send</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
+                <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
+              </svg>
+          </button>
+
+    </form>
+</main>
+
+
+<%- include("partials/footer") %> 

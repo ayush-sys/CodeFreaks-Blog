@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 
+
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));
@@ -28,17 +29,21 @@ const welcomePost = new Post({
     postDate:"00-00-0000"
 });
 
+// const date = new Date().getDate();
+let Year = new Date().getFullYear();
+
 
 // Home Route
 app.route('/')
     .get((req,res) => {
+
         Post.find({},(err,postItem) => {
             if(postItem.length === 0){
                 welcomePost.save();
                 res.redirect('/');
             }
             else
-            res.render('index.ejs',{post:postItem});
+            res.render('index.ejs',{post:postItem,year:Year});
         });
     });
     
@@ -46,7 +51,7 @@ app.route('/')
 // Compose Route
 app.route('/compose')
     .get((req,res) => {
-        res.render('compose.ejs');
+        res.render('compose.ejs',{year:Year});
     })
 
     .post((req,res) => {
@@ -55,10 +60,12 @@ app.route('/compose')
 
 
 // About Route
-app.get('/about',(req,res) => res.render('about.ejs'));
+app.get('/about',(req,res) => res.render('about.ejs',{year:Year}));
+
 
 // Contacts Route
-app.get('/contacts',(req,res) => res.render('contacts.ejs'));
+app.get('/contacts',(req,res) => res.render('contacts.ejs',{year:Year}));
+
 
 // Custom posts Route
 app.get('/posts/:postId',(req,res) => {
@@ -69,7 +76,8 @@ app.get('/posts/:postId',(req,res) => {
         res.render("posts.ejs",{post_title:post.postTitle,
             posted_on:post.postDate,
             post_subject:post.postSub,
-            post_content:post.postContent
+            post_content:post.postContent,
+            year:Year
         });
   
       else

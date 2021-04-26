@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 
+let date = new Date().toLocaleDateString();
+let Year = new Date().getFullYear();
+
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -29,8 +32,6 @@ const welcomePost = new Post({
     postDate:"00-00-0000"
 });
 
-// const date = new Date().getDate();
-let Year = new Date().getFullYear();
 
 
 // Home Route
@@ -51,11 +52,20 @@ app.route('/')
 // Compose Route
 app.route('/compose')
     .get((req,res) => {
-        res.render('compose.ejs',{year:Year});
+        res.render('compose.ejs',{todayDate:date,year:Year});
     })
 
     .post((req,res) => {
-        res.render('Still working on it !!');
+        const newPost = new Post({
+            postTitle:req.body.post_title,
+            postSub:req.body.post_sub,
+            postContent:req.body.post_desc,
+            postDate:req.body.post_date
+          });
+        
+          newPost.save();
+        
+          res.redirect('/');
     });
 
 

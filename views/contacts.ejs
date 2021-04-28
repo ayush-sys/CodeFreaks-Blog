@@ -5,11 +5,11 @@
 <main class="container mt-2 py-5">
     <h2><span class="text-muted">Drop an </span>Email.</h2>
     
-    <form class="mt-4 mx-auto">
+    <form class="mt-4 mx-auto" action="/contacts" method="post">
         <div class="row g-3 mb-3">
           <div class="col-sm-6">
             <label for="firstName" class="form-label">First name <span class="text-muted">*</span></label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+            <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
@@ -17,7 +17,7 @@
 
           <div class="col-sm-6">
             <label for="lastName" class="form-label">Last name <span class="text-muted">*</span></label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+            <input type="text" class="form-control" name="lastName" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -26,7 +26,7 @@
 
           <div class="col-12">
             <label for="email" class="form-label">Email <span class="text-muted">*</span></label>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+            <input type="email" class="form-control" name="email" placeholder="you@example.com">
             <div class="invalid-feedback">
               Please enter a valid email address for shipping updates.
             </div>
@@ -34,12 +34,12 @@
 
           <div class="col-12">
             <label for="message" class="form-label">Subject <span class="text-muted">*</span></label>
-            <input type="text" class="form-control" id="subject" placeholder="" value="" required>
+            <input type="text" class="form-control" name="subject" placeholder="" value="" required>
           </div>
 
           <div class="col-12">
             <label for="message" class="form-label">Enter Message <span class="text-muted">*</span></label>
-            <textarea class="form-control" cols="15" rows="7"></textarea>
+            <textarea class="form-control" cols="15" rows="7" name="message"></textarea>
           </div>
         </div>
 

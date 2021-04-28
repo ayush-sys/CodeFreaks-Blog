@@ -1,9 +1,13 @@
 // App for CodeFreak blogs
 
+
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
+
 
 let date = new Date().toLocaleDateString();
 let Year = new Date().getFullYear();
@@ -33,6 +37,14 @@ const welcomePost = new Post({
 });
 
 
+var transporter = nodemailer.createTransport({
+    service: process.env.user_email_service,
+    auth: {
+      user: process.env.user_email,
+      pass: process.env.user_pwd
+    }
+});
+
 
 // Home Route
 app.route('/')
@@ -61,11 +73,9 @@ app.route('/compose')
             postSub:req.body.post_sub,
             postContent:req.body.post_desc,
             postDate:req.body.post_date
-          });
-        
-          newPost.save();
-        
-          res.redirect('/');
+        });
+        newPost.save();
+        res.redirect('/');
     });
 
 
@@ -74,7 +84,28 @@ app.get('/about',(req,res) => res.render('about.ejs',{year:Year}));
 
 
 // Contacts Route
-app.get('/contacts',(req,res) => res.render('contacts.ejs',{year:Year}));
+app.route('/contacts')
+    .get((req,res) => res.render('contacts.ejs',{year:Year}))
+
+    .post((req,res) => {  
+        var mailOptions = {
+            from: process.env.user_email,
+            to: process.env.user_email,
+            subject: req.body.firstName + " " + req.body.lastName + " has sent you a message!",
+            html: "<h3>Subject: " + req.body.subject + "</h3><br>" + 
+            "<h4>Message: " + req.body.message + "</h4><br>" + 
+            "<h4>Email: " + req.body.email + "</h4><br>"
+        };
+          
+        transporter.sendMail(mailOptions, function(error, info){
+            if (!error) {
+              res.redirect('/');
+            } else {
+                console.log(error);
+            }
+        });
+
+    });
 
 
 // Custom posts Route
@@ -98,4 +129,4 @@ app.get('/posts/:postId',(req,res) => {
   
 
 
-app.listen(3000,() => console.log('App is listening on port : 3000'));
+app.listen(process.env.PORT,() => console.log('App is listening on port : 3000'));

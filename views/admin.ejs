@@ -1,0 +1,31 @@
+<%- include("partials/header-admin") %>
+
+<main class="container mt-auto py-3 px-2">
+  <h2><span class="text-muted">Recent </span>POSTS.</h2>
+    <table class="table table-hover my-4 p-4">
+        <thead>
+          <tr>
+            <th scope="col">Date posted</th>
+            <th scope="col">Post Title</th>
+            <th scope="col">Post Subject</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% posts.forEach((p) => {  %>
+                <tr>
+                    <th scope="row"><%= p.postDate %> </th>
+                    <td><%= p.postTitle %> </td>
+                    <td><%= p.postSub %> </td>
+                    <td>
+                        <a class="card-link btn btn-outline-danger mx-2" href="/deletepost/<%= p._id %>>">Delete</a>
+                        <a class="card-link btn btn-outline-dark mx-2" >Edit</a>
+                    </td>
+                </tr>
+                <!-- <a href="/posts/<%=p._id%>" class="card-link btn btn-outline-primary my-2">Read More</a> -->
+            <% }); %>
+        </tbody>
+      </table>
+</main>
+
+<%- include("partials/footer") %>

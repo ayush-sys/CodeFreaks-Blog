@@ -74,13 +74,34 @@ app.route('/compose')
             postContent:req.body.post_desc,
             postDate:req.body.post_date
         });
+        
         newPost.save();
+
         res.redirect('/');
     });
 
 
 // About Route
 app.get('/about',(req,res) => res.render('about.ejs',{year:Year}));
+
+
+//Admin SignIn Route
+app.get('/login',(req,res) => res.render('login.ejs',{year:Year}));
+
+
+
+//Admin Route
+app.route('/admin')
+    .get((req,res) => {
+        Post.find({},(err,postItem) => {
+            res.render('admin.ejs',{posts:postItem,year:Year});
+        });
+    })
+
+    .post((req,res) => {
+        res.render("Function not ready !");
+    });
+
 
 
 // Contacts Route
@@ -114,7 +135,7 @@ app.get('/posts/:postId',(req,res) => {
     
     Post.findOne({_id:req_post},(err,post) => {
       if(!err)
-        res.render("posts.ejs",{post_title:post.postTitle,
+        res.render('posts.ejs',{post_title:post.postTitle,
             posted_on:post.postDate,
             post_subject:post.postSub,
             post_content:post.postContent,
@@ -126,7 +147,19 @@ app.get('/posts/:postId',(req,res) => {
     });
   
   })
+
   
+
+//delete a particular post
+// app.route('/deletepost/:postId').delete((req,res) => {
+//     Article.deleteOne({title:req.params.articleTitle},(err) =>{
+//         if(!err)
+//             res.send("Succesfully deleted the data.");
+
+//         else
+//             res.send(err);
+//     });
+// });
 
 
 app.listen(process.env.PORT,() => console.log('App is listening on port : 3000'));

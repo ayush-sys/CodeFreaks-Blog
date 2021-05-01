@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+const { result } = require('lodash');
 
 
 let date = new Date().toLocaleDateString();
@@ -85,8 +86,10 @@ app.route('/compose')
 app.get('/about',(req,res) => res.render('about.ejs',{year:Year}));
 
 
-//Admin SignIn Route
-app.get('/login',(req,res) => res.render('login.ejs',{year:Year}));
+//Admin LogIn Route
+app.route('/login')
+    .get((req,res) => res.render('login.ejs',{year:Year}))
+    .post((req,res) => res.render('Still not ready!!'));
 
 
 
@@ -151,15 +154,39 @@ app.get('/posts/:postId',(req,res) => {
   
 
 //delete a particular post
-// app.route('/deletepost/:postId').delete((req,res) => {
-//     Article.deleteOne({title:req.params.articleTitle},(err) =>{
-//         if(!err)
-//             res.send("Succesfully deleted the data.");
+app.delete('/posts/delete/:postId',(req,res) => {
+    Post.findByIdAndDelete(req.params.postId).then(result => {
+        res.json({redirect: '/admin'});
+    })
+});
 
-//         else
-//             res.send(err);
-//     });
-// });
+
+
+
+//Edit a particular post Route
+app.route('/posts/edit/:postId')
+    .get((req,res) => {
+
+        let req_post = req.params.postId;
+
+        Post.findOne({_id:req_post},(err,post) => {
+            if(!err)
+              res.render('editpost.ejs',{post_title:post.postTitle,
+                  post_date:post.postDate,
+                  post_subject:post.postSub,
+                  post_content:post.postContent,
+                  post_id:post._id,
+                  year:Year
+              });
+        
+            else
+              console.log(err);
+          });
+    })
+
+    .post((req,res) => res.send("Still not ready!!"));
+
+
 
 
 app.listen(process.env.PORT,() => console.log('App is listening on port : 3000'));

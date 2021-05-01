@@ -1,15 +1,15 @@
 
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Source+Code+Pro:wght@500&display=swap');
 
 
 .header-title{
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Source Code Pro', monospace;
     font-size: 1.2rem;
 }
 
 body{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 
@@ -56,4 +56,9 @@ body{
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+.social-icon{
+    color:#686d76;
+    text-decoration: none;
 }

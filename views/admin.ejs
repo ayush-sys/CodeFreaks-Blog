@@ -18,14 +18,22 @@
                     <td><%= p.postTitle %> </td>
                     <td><%= p.postSub %> </td>
                     <td>
-                        <a class="card-link btn btn-outline-danger mx-2" href="/deletepost/<%= p._id %>>">Delete</a>
-                        <a class="card-link btn btn-outline-dark mx-2" >Edit</a>
+                        <a class="card-link btn btn-outline-danger mx-2 post-delete" onclick="deletePost('<%= p._id %>')">Delete</a>
+                        <a class="card-link btn btn-outline-dark mx-2" href="/posts/edit/<%= p._id %>">Edit</a>
                     </td>
                 </tr>
-                <!-- <a href="/posts/<%=p._id%>" class="card-link btn btn-outline-primary my-2">Read More</a> -->
             <% }); %>
         </tbody>
       </table>
 </main>
+
+<script>
+  function deletePost(postId){
+    const endpoint = `/posts/delete/${postId}`;
+    fetch(endpoint,{method:'DELETE'})
+    .then((response) => response.json()).then((data) => window.location.href = data.redirect)
+    .catch(err => console.log(err));
+  }
+</script>
 
 <%- include("partials/footer") %>

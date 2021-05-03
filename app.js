@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.set('view engine','ejs');
 
-mongoose.connect("mongodb://localhost:27017/cfblogsDB",{urlencoded:true});
+mongoose.connect(process.env.mongodb_loc,{urlencoded:true});
 
 const postSchema = {
     postTitle:String,
